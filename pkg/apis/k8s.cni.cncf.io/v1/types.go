@@ -1,8 +1,10 @@
 package v1
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"net"
+
+	"github.com/containernetworking/cni/pkg/types"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // +genclient
@@ -99,13 +101,15 @@ type MemifDevice struct {
 // NetworkStatus is for network status annotation for pod
 // +k8s:deepcopy-gen=false
 type NetworkStatus struct {
-	Name       string      `json:"name"`
-	Interface  string      `json:"interface,omitempty"`
-	IPs        []string    `json:"ips,omitempty"`
-	Mac        string      `json:"mac,omitempty"`
-	Default    bool        `json:"default,omitempty"`
-	DNS        DNS         `json:"dns,omitempty"`
-	DeviceInfo *DeviceInfo `json:"device-info,omitempty"`
+	Name       string         `json:"name"`
+	Interface  string         `json:"interface,omitempty"`
+	IPs        []string       `json:"ips,omitempty"`
+	Mac        string         `json:"mac,omitempty"`
+	Default    bool           `json:"default,omitempty"`
+	DNS        DNS            `json:"dns,omitempty"`
+	DeviceInfo *DeviceInfo    `json:"device-info,omitempty"`
+	MTU        int            `json:"mtu,omitempty"`
+	Routes     []*types.Route `json:"routes,omitempty"`
 }
 
 // PortMapEntry for CNI PortMapEntry
